@@ -223,7 +223,7 @@ public class ClientMain {
 
     }
 
-    // potrebbe essere un thread separato...
+    // inizio la sessione
     public static void startClientSession(ObjectInputStream is, ObjectOutputStream os) throws IOException, InterruptedException {
 
         boolean done = false;
@@ -249,7 +249,7 @@ public class ClientMain {
                     if(args.length == 0)
                         System.out.println("> error : specify the project name.");
                 }
-                else if(!projInfo.getDnsProjects().containsKey(args[0])){
+                else if(!projInfo.getDnsProjects().containsKey(args[0])){ // controllo se il client possiede il progetto
                     System.out.println("> error : il è progetto inesistente.");
                 }
                 else{
@@ -280,6 +280,29 @@ public class ClientMain {
                     String address = projInfo.getAddress(args[0]); // ottengo indirizzo della chat del progetto
                     projChats.get(address).writeMessage(userLogged, message.toString()); // lo mando
                 }
+            }else if(command.contentEquals("help")){ // mostra un helper
+                System.out.println("///////////////////////////////////////////////////////////////////////////////////////\n");
+                System.out.println("GESTIONE UTENTI:\n");
+                System.out.println("listUsers : mostra lo stato degli utenti.");
+                System.out.println("listOnlineUsers : mostra utenti online\n\n");
+                System.out.println("GESTIONE PROGETTI E CARD:\n");
+                System.out.println("createProject <projectName> : crea un nuovo progetto ");
+                System.out.println("addMember <projectName> <username> : aggiunge un membro al progetto");
+                System.out.println("showMembers <projectName> : mostra i membri di un progetto");
+                System.out.println("addCard <projectName> <cardName> <description> : aggiunge una card a un progetto");
+                System.out.println("showCards <projectName> : mostra le card di un progetto.");
+                System.out.println("showCard <projectName> <cardName> : mostra info su una card");
+                System.out.println("getCardHistory <projectName> <cardName> : mostra history di una card\n");
+                System.out.println("moveCard <projectName> <cardName> <sourceList> <destList> :");
+                System.out.println("sposta una card dalla sourceList alla destList.");
+                System.out.println("Utilizza SOLO i seguenti nomi per le liste:");
+                System.out.println("todoList, inprogList, reviseList, doneList\n");
+                System.out.println("removeProject <projectName> : rimuove un progetto.\n\n");
+                System.out.println("CHAT:\n");
+                System.out.println("sendMessage <projectName> <message> : manda un messaggio sulla chat.");
+                System.out.println("readMessage <projectName> : leggi i messaggi sulla chat non letti.\n\n");
+                System.out.println("logout : esegui il logout\n");
+                System.out.println("///////////////////////////////////////////////////////////////////////////////////////");
             }
             else {
                 os.writeObject(command);
