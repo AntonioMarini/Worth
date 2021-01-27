@@ -21,8 +21,7 @@ public class Chat {
     private MulticastSocket mSocket;
     private ArrayList<String> messages;
 
-    private static final  int nMaxMessages = 20; // massimo numero di messaggi che vengono conservati
-
+    @SuppressWarnings("deprecation")
     public Chat(String address, int port){
 
         messages = new ArrayList<>(); // chat non persistente nel sistema
@@ -54,6 +53,7 @@ public class Chat {
     }
 
     // lascia il gruppo e chiude la socket
+    @SuppressWarnings("deprecation")
     public synchronized void closeChat(){
         try{ mSocket.leaveGroup(group);}
         catch (IOException e){e.printStackTrace();}

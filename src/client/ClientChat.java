@@ -16,6 +16,7 @@ public class ClientChat {
     private ArrayList<String> messages;
     private ClientChatReader chatReader;
 
+    @SuppressWarnings("deprecation")
     public ClientChat(String address, int port){
 
         messages = new ArrayList<>(); // chat non persistente nel sistema
@@ -61,6 +62,7 @@ public class ClientChat {
         return tmp;
     }
 
+    @SuppressWarnings("deprecation")
     public void closeChat(){
 
         try{ mSocket.leaveGroup(group);}
